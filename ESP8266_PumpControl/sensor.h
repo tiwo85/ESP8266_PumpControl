@@ -34,8 +34,8 @@ class sensor {
     void      StoreJsonConfig(String* json); 
     void      LoadJsonConfig();
     void      GetWebContent(String* html);
-    const int& GetRaw() const {return raw;}
-    const uint8_t& GetLvl() const {return level; }
+    const uint16_t& GetRaw() const {return raw;}
+    const uint8_t&  GetLvl() const {return level; }
     const sensorType_t& GetType() const {return Type; }
     const uint8_t& GetThresholdMin()const {return threshold_min;}
     const uint8_t& GetThresholdMax()const {return threshold_max;}
@@ -47,12 +47,12 @@ class sensor {
     
     uint8_t   pinTrigger;
     uint8_t   pinEcho;
-    int       raw;
+    uint16_t  raw;
     uint8_t   level;
     uint16_t  MAX_DIST;
     sensorType_t   Type;
-    uint8_t   measureDistMin;
-    uint8_t   measureDistMax;
+    uint16_t  measureDistMin;
+    uint16_t  measureDistMax;
     uint16_t  measurecycle;
     uint8_t   threshold_min;
     uint8_t   threshold_max;
@@ -63,4 +63,3 @@ class sensor {
 };
 
 #endif
-
