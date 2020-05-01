@@ -62,6 +62,7 @@ class WebServer {
     void      handleSensorConfig();
     void      handleRelations();
     void      handleAjax();
+    void      handleConfigDownload();
     void      ReceiveJSONConfiguration(page_t page);
     void      getPageHeader(String* html, page_t pageactive);
     void      getPageFooter(String* html);

@@ -51,7 +51,7 @@ void BaseConfig::LoadJsonConfig() {
         if (json.containsKey("pinscl"))           { this->pin_scl = atoi(json["pinscl"]) - 200;}
         if (json.containsKey("sel_oled"))         { if (strcmp(json["sel_oled"], "none")==0) { this->enable_oled=false;} else {this->enable_oled=true;}}
         if (json.containsKey("sel_3wege"))        { if (strcmp(json["sel_3wege"], "none")==0) { this->enable_3wege=false;} else {this->enable_3wege=true;}}
-        
+        if (json.containsKey("max_parallel"))         { this->max_parallel = atoi(json["max_parallel"]);}        
         if (json.containsKey("i2coled"))          { this->i2caddress_oled = strtoul(json["i2coled"], NULL, 16);} // hex convert to dec        
         if (json.containsKey("ventil3wege_port")) { this->ventil3wege_port = atoi(json["ventil3wege_port"]);}
         
@@ -186,6 +186,18 @@ void BaseConfig::GetWebContent(String* html) {
   sprintf(buffer, "<td><input min='0' max='254' id='ConfiguredPorts_0' name='ventil3wege_port' type='number' value='%d'/></td>\n", this->ventil3wege_port);
   html->concat(buffer);
   html->concat("</tr>\n");
+
+  html->concat("<tr>\n");
+  html->concat("<td>Maximal paralele Threads</td>\n");
+  sprintf(buffer, "<td><input maxlength='5' name='max_parallel' type='text' value='%d'/></td>\n", this->max_parallel);
+  html->concat(buffer);
+  html->concat("</tr>\n");
+
+  html->concat("<tr>\n");
+  html->concat("<td>Download Config File</td>\n");
+  html->concat("<td><a href='BaseConfig.json'>BaseConfig.json</a></td>\n");
+  html->concat("</tr>\n");
+
   html->concat("</tbody>\n");
   html->concat("</table>\n");
 

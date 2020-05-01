@@ -17,6 +17,7 @@
 #include "i2cdetect.h"
 */
 
+#include <Arduino.h>
 #include <vector>
 #include "BaseConfig.h"
 #include "valveStructure.h"

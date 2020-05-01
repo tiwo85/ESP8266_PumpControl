@@ -20,6 +20,7 @@ WebServer::WebServer() : DoReboot(false) {
   server->on("/javascript.js", HTTP_GET, [this]() {this->handleJS(); });
   server->on("/jsajax.js", HTTP_GET, [this]() {this->handleJsAjax(); });
   server->on("/parameter.js", HTTP_GET, [this]() {this->handleJSParam(); });
+  server->on("/BaseConfig.json", HTTP_GET, [this]() {this->handleConfigDownload(); });
   
   server->on("/StoreBaseConfig", HTTP_POST, [this]()   { this->ReceiveJSONConfiguration(BASECONFIG); });
   server->on("/StoreSensorConfig", HTTP_POST, [this]() { this->ReceiveJSONConfiguration(SENSOR); });
@@ -73,6 +74,14 @@ void WebServer::handleJSParam() {
   VStruct->getWebJsParameter(&html);
   server->setContentLength(html.length());
   server->send(200, "text/javascript", html.c_str());
+}
+
+void WebServer::handleConfigDownload() {
+  File file = SPIFFS.open("/BaseConfig.json", "r");                 // Open it
+  size_t sent = server->streamFile(file, "application/force-download"); // And send it to the client
+  file.close();
+  //server->send(200, "text/javascript", html.c_str());
+  file.close();
 }
 
 void WebServer::handleReboot() {
